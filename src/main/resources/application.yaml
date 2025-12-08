@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+     url: jdbc:postgresql://localhost:5432/inventorydb
+     driver-class-name: org.postgresql.Driver
+     username: postgres
+     password: Siphosami@2024
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+## H2 console (dev)
+#spring.h2.console.enabled: true
+#spring.h2.console.path: /h2-console
