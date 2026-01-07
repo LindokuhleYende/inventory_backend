@@ -11,6 +11,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  security:
+    jwt:
+      secret-key: b97ae5a4ff504370b8fc4b13cca6bb4f00efdff9
+      expiration: 86400000
 
 ## H2 console (dev)
 #spring.h2.console.enabled: true

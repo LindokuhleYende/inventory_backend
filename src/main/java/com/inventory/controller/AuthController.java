@@ -3,6 +3,8 @@ package com.inventory.controller;
 import com.inventory.model.User;
 import com.inventory.repository.UserRepository;
 import com.inventory.security.JwtTokenProvider;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,16 +16,16 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 @CrossOrigin
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "Authentication APIs")
 public class AuthController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    /**
-     * Register a new user
-     */
+
     @PostMapping("/register")
+    @Operation(summary = "Register a new user")
     public ResponseEntity<?> register(@RequestBody User request) {
 
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -41,10 +43,9 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "User registered successfully"));
     }
 
-    /**
-     * Login user and return JWT
-     */
+
     @PostMapping("/login")
+    @Operation(summary = "Login a registered user")
     public ResponseEntity<?> login(@RequestBody User request) {
 
         User user = userRepository.findByUsername(request.getUsername())
