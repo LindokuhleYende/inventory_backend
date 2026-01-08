@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: inventory_db
+    environment:
+      POSTGRES_DB: inventorydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d inventorydb"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: inventory_app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Point Spring to the db service host
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inventorydb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      # Optional overrides
+      SERVER_PORT: 8080
+      # JWT config (optional; otherwise use defaults from application.yaml)
+      # SPRING_SECURITY_JWT_SECRET_KEY: change-me-please
+      # SPRING_SECURITY_JWT_EXPIRATION: "86400000"
+    ports:
+      - "8080:8080"
