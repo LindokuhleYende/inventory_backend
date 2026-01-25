@@ -20,7 +20,7 @@ public class UserDetailServiceImp implements UserDetailsService{
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
         return new User(
-                user.getId().toString(),
+                user.getUsername(),
                 user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority("USER"))
         );

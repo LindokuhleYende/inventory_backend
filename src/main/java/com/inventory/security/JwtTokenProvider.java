@@ -48,15 +48,7 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-//    public Long getUserIdFromToken(String token) {
-//        Claims claims = Jwts.parser()
-//                .verifyWith(secretKey)
-//                .build()
-//                .parseSignedClaims(token)
-//                .getPayload();
-//
-//        return Long.parseLong(claims.getSubject());
-//    }
+
 
     public boolean validateToken(String token) {
         try {

@@ -10,7 +10,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sq
   security:
     jwt:
       secret-key: b97ae5a4ff504370b8fc4b13cca6bb4f00efdff9
